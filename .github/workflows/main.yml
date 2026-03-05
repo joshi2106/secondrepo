@@ -2,12 +2,13 @@ name: Docker CI Pipeline
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
+
 env:
   DOCKER_USERNAME: joshi2106
-  
+
 jobs:
+
   build-push-run:
 
     runs-on: ubuntu-latest
@@ -17,17 +18,20 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      - name: Give Docker Socket Permission
+        run: sudo chmod 777 /var/run/docker.sock
+
       - name: Build Docker Image
-        run: docker build -t myimagev1 .
+        run: docker build -t myimage .
 
       - name: Login to DockerHub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u $DOCKER_USERNAME --password-stdin
 
       - name: Tag Docker Image
-        run: docker tag myimagev1 $DOCKER_USERNAME/firstrepo:Image001
+        run: docker tag myimage $DOCKER_USERNAME/myfirstrepo:Image5
 
       - name: Push Image to DockerHub
-        run: docker push $DOCKER_USERNAME/firstrepo:Image001
+        run: docker push $DOCKER_USERNAME/myfirstrepo:Image5
 
       - name: Run Container
-        run: docker run -d --name cont-2 -p 1264:80 $DOCKER_USERNAME/firstrepo:Image001
+        run: docker run -d -p 1235:80 $DOCKER_USERNAME/myfirstrepo:Image5
