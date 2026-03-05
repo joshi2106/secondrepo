@@ -31,4 +31,4 @@ jobs:
         run: docker push $DOCKER_USERNAME/myfirstrepo:Image5
 
       - name: Run Container
-        run: docker run -d -p 1235:80 $DOCKER_USERNAME/myfirstrepo:Image5
+        run: docker run -itd container00001 -p 1235:80 $DOCKER_USERNAME/myfirstrepo:Image5
