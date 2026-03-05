@@ -18,9 +18,6 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Give Docker Socket Permission
-        run: sudo chmod 777 /var/run/docker.sock
-
       - name: Build Docker Image
         run: docker build -t myimage .
 
